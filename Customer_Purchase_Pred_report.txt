@@ -1,0 +1,85 @@
+
+# Business Context:-
+->Marketing costs money for ads , emails , discounts , coupons.
+->Sending offers to everyone is a waste.
+->Company wants to focus only on likely buyers.
+
+In short , the company is trying to optimize the cost.
+
+->Sending same ads/emails to all users is equal to a poor ROI.
+->So the question of the company may be - Whom should we target?
+
+# Business Objective:-
+
+- Increase conversion rate while reducing unnecessary marketing costs.
+  This means :- Spend less money and get more purchases -> This is the real goal of the company.
+
+# The main thing is we are predicting the probability whether the customer will make a purchase or 
+  not by observing some patterns , and this is not certainty , this is probability.
+
+# What business problem does this project solve?
+- Optimizing marketing spend.
+- Improving ROI.
+- Better customer targeting.
+
+# What decision will be taken from this?
+- Who gets ads , emails , discounts , and push notifications.
+
+# What if prediction goes wrong?
+- Money wasted on ads.
+- Lost potential customers.
+
+# Which is the problem type?
+- It is a binary classification problem.
+
+# What will be the final output?
+- Purchase status -> 0 indicates will not buy and 1 indicates will buy.
+
+
+# Project Updates:-
+- Collected a few number of datasets from websites like Kaggle and to get the input features mentioned , feature engineering to be performed 
+  on those data is important and we will go ahead with the final dataset we get after feature engineering.
+
+# New dataset comments:-
+- The dataset captures core behavioral signals such as page views, cart activity, session duration, and historical purchases, which are the 
+  primary drivers of purchase intent. Additional attributes like device type or traffic source can improve performance but are not essential 
+  for modeling user intent.
+
+- Additional features such as cart intent, engagement score, and returning user flag were engineered to better capture user purchase intent 
+  while maintaining interpretability and business relevance.
+
+# EDA Insights:-
+
+Insight 1: Users who added items to cart have a significantly higher conversion rate compared to users who did not add items to cart, indicating 
+           that cart activity is a strong indicator of purchase intent.
+
+Insight 2: Sessions with higher engagement scores tend to result in purchases, suggesting that deeper interaction with the platform increases 
+           likelihood of conversion.
+
+Insight 3: Returning users show higher purchase rates than first-time users, highlighting the importance of retention-focused marketing strategies.
+
+
+
+# Questions to be answered before making the project as product-ready:-
+1.Target users?
+- Marketing and growth teams of e-commerce platforms seeking to optimize campaign spending by identifying high-intent customers.
+
+2.What does our product do ?
+- The model assumes session-level behavioral features that are commonly available in e-commerce analytics systems.
+
+3.Website workflow ?
+
+Browser (User)
+     ↓
+HTML Form (Website)
+     ↓
+FastAPI Backend
+     ↓
+ML Model (.pkl)
+     ↓
+Prediction + Decision Logic
+     ↓
+Result shown on Website
+
+
+

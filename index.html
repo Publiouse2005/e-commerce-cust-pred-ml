@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase Intent Predictor</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f4f7;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 15px 20px;
+        align-items: center;
+    }
+
+    label {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    input, select {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    .primary-btn {
+        padding: 12px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .primary-btn:hover {
+        background: #1e40af;
+    }
+
+    /* CSV Section */
+    .csv-section {
+        margin-top: 40px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin-top: 15px;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    table th, table td {
+        border: 1px solid #ccc;
+        padding: 6px;
+        text-align: center;
+    }
+
+    table th {
+        background: #f0f0f0;
+    }
+</style>
+
+
+</head>
+
+<body>
+<div class="card">
+    <h2>Customer Purchase Intent Prediction</h2>
+
+    <form action="/predict" method="post" class="form-grid">
+
+        <label>Pages Viewed</label>
+        <input type="number" name="pages_viewed" required>
+
+        <label>Cart Additions</label>
+        <input type="number" name="cart_additions" required>
+
+        <label>Session Duration (seconds)</label>
+        <input type="number" name="session_duration" required>
+
+        <label>Past Purchase Count</label>
+        <input type="number" name="past_purchase_count" required>
+
+        <label>Returning User?</label>
+        <select name="is_returning_user">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <div></div>
+        <button type="submit" class="primary-btn">Predict</button>
+
+    </form>
+</div>
+<hr>
+
+<h3>Bulk Prediction (CSV Upload)</h3>
+
+<form action="/predict_csv" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".csv" required>
+    <button type="submit">Upload & Predict</button>
+</form>
+
+{% if error %}
+<p style="color:red;"><strong>{{ error }}</strong></p>
+{% endif %}
+
+{% if csv_ready %}
+    <h4>Prediction Preview</h4>
+
+    <div class="table-container">
+        {{ preview | safe }}
+    </div>
+
+    <br>
+    <a href="/download">
+        <button>Download Predictions CSV</button>
+    </a>
+{% endif %}
+
+
+    {% if probability is defined %}
+    <div class="result">
+        <p><strong>Purchase Probability:</strong> {{ probability }}</p>
+        <p><strong>Intent Segment:</strong> {{ intent }}</p>
+        <p><strong>Recommended Action:</strong> {{ action }}</p>
+    </div>
+    {% endif %}
+</div>
+<div class="card csv-section">
+    <h3>Bulk Prediction (CSV Upload)</h3>
+
+    <form action="/predict_csv" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <br><br>
+        <button class="primary-btn">Upload & Predict</button>
+    </form>
+</div>
+</body>
+</html>
