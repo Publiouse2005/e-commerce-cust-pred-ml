@@ -1,8 +1,9 @@
 
-FastAPI
-Uvicorn
-Pandas
-NumPy
+fastapi
+uvicorn
+pandas
+numpy
 scikit-learn
-Jinja2
-Python-multipart
+xgboost
+jinja2
+python-multipart
