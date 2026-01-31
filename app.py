@@ -68,7 +68,19 @@ def favicon():
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "prediction": None,
+            "purchase_probability": None,
+            "intent_segment": None,
+            "recommended_action": None,
+            "preview": None,
+            "csv_ready": False,
+            "error": None,
+        },
+    )
 
 
 @app.post("/predict", response_class=HTMLResponse)
@@ -201,13 +213,18 @@ async def predict_csv(request: Request, file: UploadFile = File(...)):
     df.to_csv(output_path, index=False)
 
     return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
-            "csv_ready": True,
-            "preview": df.head().to_html(classes="table"),
-        },
-    )
+    "index.html",
+    {
+        "request": request,
+        "prediction": prediction,
+        "purchase_probability": probability,
+        "intent_segment": intent,
+        "recommended_action": action,
+        "preview": preview_html,
+        "csv_ready": True,
+        "error": None,
+    },
+)
 
 
 @app.get("/download")
@@ -217,3 +234,4 @@ def download_file():
         media_type="text/csv",
         filename="purchase_intent_predictions.csv",
     )
+
